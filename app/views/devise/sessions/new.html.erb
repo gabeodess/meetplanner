@@ -10,7 +10,6 @@
         <div class="form-group">
           <%= f.label :email %><br/>
           <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "Enter email" %>
-          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
 
         </div>
         <div class="form-group">
@@ -31,6 +30,7 @@
         </div>
 
         <div>
+          <p><a href="<%= new_user_password_path %>">Forgot password</a>?</p>
           <p>Not registered? <a href="<%= new_user_registration_path %>">Sign up</a>.</p>
         </div>
 
