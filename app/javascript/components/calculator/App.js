@@ -1,9 +1,22 @@
 import React from "react"
 import PropTypes from "prop-types"
+
+// TODO: find an acceptable location to store constants
+const coefficients = {
+  female: {
+    A: 0.783497476,
+    b: 153.655,
+  },
+  male: {
+    A: 0.751945030,
+    b: 175.508,
+  }
+}
+
 class App extends React.Component {
   constructor() {
     super()
-    this.state = { type: "sinclair" }
+    this.state = { type: "sinclair", gender: "male" }
     this.onRadioButtonClick = this.onRadioButtonClick.bind(this)
     this.handleInputChange = this.handleInputChange.bind(this)
   }
@@ -49,7 +62,14 @@ class App extends React.Component {
   }
 
   sinclairTotal(){
-    return parseFloat(this.state.weight) + parseFloat(this.state.total)
+    const coefficient = coefficients[this.state.gender]
+    let sinclairTotal = this.state.total
+    if (this.state.weight <= coefficient.b) {
+      const X = Math.log10(this.state.weight / coefficient.b);
+      const SC = Math.pow(10, coefficient.A * Math.pow(X, 2));
+      sinclairTotal = this.state.total * SC;
+    }
+    return sinclairTotal.toFixed(2);
   }
 
   mastersTotal(){
