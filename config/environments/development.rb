@@ -1,5 +1,10 @@
 Rails.application.configure do
 
+  # Do not generate js/css/helpers/fixtures for each resource
+  config.generators.assets = false
+  config.generators.helper = false
+  config.generators.test_framework :test_unit, fixture: false
+
   config.react.variant = :development
 
   # Verifies that versions and hashed value of the package contents in the project's package.json
