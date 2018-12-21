@@ -1,8 +1,5 @@
 Rails.application.routes.draw do
   devise_for :users
-  get 'application/index'
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-
+  resource :calculator, only: [:show]
   root 'application#index'
-
 end
