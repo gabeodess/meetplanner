@@ -1,5 +1,4 @@
 import React from "react"
-import PropTypes from "prop-types"
 
 // TODO: find an acceptable location to store constants
 const coefficients = {
@@ -53,10 +52,8 @@ class App extends React.Component {
     switch (this.state.type) {
     case "sinclair":
       return "Sinclair"
-      break;
     case "masters":
       return "Sinclair-Meltzer-Faber"
-      break;
     default:
       alert("unknown state: \"" + this.state.type + "\"")
     }
@@ -72,10 +69,8 @@ class App extends React.Component {
         return
       }
       return this.mastersTotal()
-      break;
     case "sinclair":
       return this.sinclairTotal()
-      break;
     default:
       alert("unknown state: \"" + this.state.type + "\"")
     }
