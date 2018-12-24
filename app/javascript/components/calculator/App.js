@@ -52,6 +52,7 @@ class App extends React.Component {
     switch (this.state.type) {
     case "sinclair":
       return "Sinclair"
+      break;
     case "masters":
       return "Sinclair-Meltzer-Faber"
     default:
