@@ -1,0 +1,37 @@
+# This is the configuration used to check the rubocop source code.
+
+AllCops:
+  Exclude:
+    - db/schema.rb
+    - node_modules/**/*
+    - spring.rb
+    - bin/*
+
+Metrics/LineLength:
+  Max: 160
+
+Metrics/BlockLength:
+  Exclude:
+    - config/environments/*
+
+Style/ClassAndModuleChildren:
+  EnforcedStyle: compact
+  Exclude:
+    - config/application.rb
+    - app/channels/application_cable/connection.rb
+    - app/channels/application_cable/channel.rb
+
+Style/Documentation:
+  Exclude:
+    - config/application.rb
+    - db/migrate/*
+    - test/**/*
+    - app/models/application_record.rb
+    - app/mailers/application_mailer.rb
+    - app/helpers/application_helper.rb
+    - app/controllers/application_controller.rb
+    - app/channels/application_cable/connection.rb
+    - app/channels/application_cable/channel.rb
+
+Style/FrozenStringLiteralComment:
+  EnforcedStyle: never
