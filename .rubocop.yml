@@ -35,3 +35,6 @@ Style/Documentation:
 
 Style/FrozenStringLiteralComment:
   EnforcedStyle: never
+
+Layout/MultilineMethodCallIndentation:
+  EnforcedStyle: indented
