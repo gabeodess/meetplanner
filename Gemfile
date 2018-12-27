@@ -66,3 +66,5 @@ gem 'react-rails'
 gem 'bootstrap', '~> 4.1.3'
 gem 'jquery-rails'
 gem 'devise'
+gem "rack", ">= 2.0.6"
+gem "loofah", ">= 2.2.3"
