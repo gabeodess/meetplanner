@@ -3,6 +3,13 @@
 This README documents the steps that are necessary to get the
 application up and running.
 
+## Getting Started
+`git clone git@github.com:gabeodess/meetplanner.git`
+`cd meetplanner`
+`rails app:install`
+`rails db:setup`
+`rails s`
+
 Things to cover:
 
 * Ruby version
