@@ -8,7 +8,7 @@ application up and running.
 `cd meetplanner`
 `rails app:install`
 `rails db:setup`
-`rails start`
+`rails server`
 
 Things to cover:
 
