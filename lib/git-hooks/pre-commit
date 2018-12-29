@@ -1,0 +1,14 @@
+#!/bin/bash
+
+val=0
+for dir in lib/git-hooks/pre-commit/*; do
+  echo $dir;
+  output=`"$dir"`
+  return=$?
+  echo "$output"
+  if [ $return -eq 1 ]
+  then
+    val=1
+  fi
+done
+exit $val
