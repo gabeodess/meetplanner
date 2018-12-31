@@ -1,4 +1,4 @@
-import React from "react"
+import React from 'react';
 
 // TODO: find an acceptable location to store constants
 const coefficients = {
@@ -9,8 +9,8 @@ const coefficients = {
   male: {
     A: 0.751945030,
     b: 175.508,
-  }
-}
+  },
+};
 // hello world
 const pad = new Array(30).fill(null);
 const mastersCoefficients = [...pad,
@@ -29,106 +29,123 @@ const mastersCoefficients = [...pad,
   2.336, 2.419, 2.504, 2.597,
   2.702, 2.831, 2.981, 3.153,
   3.352, 3.580, 3.843, 4.145,
-  4.493
+  4.493,
 ];
 
 class App extends React.Component {
-  constructor() {
-    super()
-    this.state = { type: "sinclair", gender: "male" }
-    this.onRadioButtonClick = this.onRadioButtonClick.bind(this)
-    this.handleInputChange = this.handleInputChange.bind(this)
+  constructor(props) {
+    super(props);
+    this.state = { type: 'sinclair', gender: 'male', age: null };
+    this.onRadioButtonClick = this.onRadioButtonClick.bind(this);
+    this.onInputChange = this.onInputChange.bind(this);
   }
 
-  title(){
-    var val = ""
-    if (this.state.type == "masters") {
-      val = "Masters "
-    }
-    return [val, "Sinclair Calculator"].join("")
+  onRadioButtonClick(e) {
+    const $input = $(e.target).find('input:first');
+    const val = $input.val();
+    const name = $input.attr('name');
+
+    this.setState({ [name]: val });
   }
 
-  totalTitle(){
-    switch (this.state.type) {
-    case "sinclair":
-      return "Sinclair"
-    case "masters":
-      return "Sinclair-Meltzer-Faber"
-    default:
-      alert("unknown state: \"" + this.state.type + "\"")
-    }
+  onInputChange(event) {
+    const { target } = event;
+    const { value, name } = target;
+
+    this.setState({
+      [name]: value,
+    });
   }
 
-  total(){
-    if (!this.state.weight || !this.state.total) {
-      return
-    }
-    switch (this.state.type) {
-    case "masters":
-      if (!this.state.age) {
-        return
-      }
-      return this.mastersTotal()
-    case "sinclair":
-      return this.sinclairTotal()
-    default:
-      alert("unknown state: \"" + this.state.type + "\"")
+  totalTitle() {
+    const { type } = this.state;
+    switch (type) {
+      case 'sinclair':
+        return 'Sinclair';
+      case 'masters':
+        return 'Sinclair-Meltzer-Faber';
+      default:
+        console.log(`unknown state: "${type}"`); // eslint-disable-line no-console
+        return null;
     }
   }
 
-  sinclairTotal(){
-    const coefficient = coefficients[this.state.gender]
-    let sinclairTotal = this.state.total
-    if (this.state.weight <= coefficient.b) {
-      const X = Math.log10(this.state.weight / coefficient.b);
-      const SC = Math.pow(10, coefficient.A * Math.pow(X, 2));
-      sinclairTotal = this.state.total * SC;
+  total() {
+    const {
+      weight, total, type, age,
+    } = this.state;
+    if (!weight || !total) {
+      return null;
+    }
+    switch (type) {
+      case 'masters':
+        if (!age) {
+          return null;
+        }
+        return this.mastersTotal();
+      case 'sinclair':
+        return this.sinclairTotal();
+      default:
+        console.log(`unknown type: "${type}"`); // eslint-disable-line no-console
+        return null;
+    }
+  }
+
+  sinclairTotal() {
+    const { gender, total, weight } = this.state;
+    const coefficient = coefficients[gender];
+    let sinclairTotal = total;
+    if (weight <= coefficient.b) {
+      const X = Math.log10(weight / coefficient.b);
+      const SC = 10 ** (coefficient.A * (X ** 2));
+      sinclairTotal = total * SC;
     }
     return sinclairTotal.toFixed(2);
   }
 
-  mastersTotal(){
-    const coefficient = coefficients[this.state.gender];
-    let mastersTotal = this.state.total;
+  mastersTotal() {
+    const {
+      gender, total, weight, age,
+    } = this.state;
+    const coefficient = coefficients[gender];
+    let mastersTotal = total;
 
-    if (this.state.weight <= coefficient.b) {
-      const X = Math.log10(this.state.weight / coefficient.b);
-      const SC = Math.pow(10, coefficient.A * Math.pow(X, 2));
-      mastersTotal = this.state.total * SC * mastersCoefficients[this.state.age];
+    if (weight <= coefficient.b) {
+      const X = Math.log10(weight / coefficient.b);
+      const SC = 10 ** (coefficient.A * (X ** 2));
+      mastersTotal = total * SC * mastersCoefficients[age];
     }
 
-     return mastersTotal.toFixed(2);
+    return mastersTotal.toFixed(2);
   }
 
-  handleInputChange(event) {
-    const target = event.target;
-    const value = target.value;
-    const name = target.name;
-
-    this.setState({
-      [name]: value
-    });
+  title() {
+    const { type } = this.state;
+    let val = '';
+    if (type === 'masters') {
+      val = 'Masters ';
+    }
+    return [val, 'Sinclair Calculator'].join('');
   }
 
-  onRadioButtonClick(e){
-    var $input = $(e.target).find("input:first")
-    var val = $input.val()
-    var name = $input.attr("name")
+  // TODO: onTypeChanged in onClick on the label should be moved to an onChange on the input.
+  // Bootstrap styles here seem to be disabling onChange somehow
+  render() {
+    const { type } = this.state;
+    let { age } = this.state;
+    age = age || '';
 
-    this.setState({[name]: val})
-  }
-
-  // TODO: onTypeChanged in onClick on the label should be moved to an onChange on the input.  Bootstrap styles here seem to be disabling onChange somehow
-  render () {
     return (
       <div className="container-fluid">
         <div className="row">
           <div className="btn-group btn-group-toggle p-0 col-sm-12" data-toggle="buttons">
-            <label className="btn btn-primary rounded-0 col-sm-6 active" onClick={this.onRadioButtonClick}>
-              <input type="radio" name="type" id="option1" autoComplete="off" value="sinclair"/>Sinclair
+            <label className="btn btn-primary rounded-0 col-sm-6 active" htmlFor="type-sinclair" onClick={this.onRadioButtonClick}>
+              <input type="radio" name="type" autoComplete="off" value="sinclair" id="type-sinclair" />
+              Sinclair
             </label>
-            <label className="btn btn-primary rounded-0 col-sm-6" onClick={this.onRadioButtonClick}>
-              <input type="radio" name="type" id="option2" autoComplete="off" value="masters"/> Masters
+            <label className="btn btn-primary rounded-0 col-sm-6" htmlFor="type-masters" onClick={this.onRadioButtonClick}>
+              <input type="radio" name="type" autoComplete="off" value="masters" id="type-masters" />
+              Masters
             </label>
           </div>
         </div>
@@ -136,44 +153,55 @@ class App extends React.Component {
           <div className="text-center h6">{this.title()}</div>
 
           <div className="btn-group btn-group-toggle p-0 col-sm-12" data-toggle="buttons">
-            <label className="btn btn-primary col-sm-6 active" onClick={this.onRadioButtonClick}>
-              <input type="radio" name="gender" autoComplete="off" value="male"/>Male
+            <label htmlFor="gender-male" className="btn btn-primary col-sm-6 active" onClick={this.onRadioButtonClick}>
+              <input type="radio" name="gender" id="gender-male" autoComplete="off" value="male" />
+              Male
             </label>
-            <label className="btn btn-primary col-sm-6" onClick={this.onRadioButtonClick}>
-              <input type="radio" name="gender" autoComplete="off" value="female"/>Female
+            <label htmlFor="gender-female" className="btn btn-primary col-sm-6" onClick={this.onRadioButtonClick}>
+              <input type="radio" name="gender" id="gender-female" autoComplete="off" value="female" />
+              Female
             </label>
           </div>
 
-          <div className='row'>
+          <div className="row">
             <div className="form-group col-6">
-              <label htmlFor="weight">Weight (kg)</label>
-              <input type="number" className="form-control" name="weight" id="weight" aria-describedby="weightHelp" placeholder="Enter weight" onChange={this.handleInputChange}/>
+              <label htmlFor="weight">
+                Weight (kg)
+                <input type="number" className="form-control" name="weight" id="weight" aria-describedby="weightHelp" placeholder="Enter weight" onChange={this.onInputChange} />
+              </label>
             </div>
 
             {
-              this.state.type == "masters" ?
+              type === 'masters' ? (
                 <div className="form-group col-6">
-                  <label htmlFor="age">Age</label>
-                  <input type="number" className="form-control" name="age" value={this.state.age} id="age" aria-describedby="ageHelp" placeholder="Enter age" onChange={this.handleInputChange}/>
-                </div> : null
+                  <label htmlFor="age">
+                    Age
+                    <input type="number" value={age} className="form-control" name="age" id="age" aria-describedby="ageHelp" placeholder="Enter age" onChange={this.onInputChange} />
+                  </label>
+                </div>
+              ) : null
 
             }
           </div>
 
           <div className="form-group">
-            <label htmlFor="total">Total (kg)</label>
-            <input type="number" className="form-control" name="total" id="total" aria-describedby="totalHelp" placeholder="Enter total" onChange={this.handleInputChange}/>
+            <label htmlFor="total">
+              Total (kg)
+              <input type="number" className="form-control" name="total" id="total" aria-describedby="totalHelp" placeholder="Enter total" onChange={this.onInputChange} />
+            </label>
           </div>
 
           <div className="text-center">
-            <div className="h6">{this.totalTitle()} Total:</div>
+            <div className="h6">
+              {this.totalTitle()}
+              Total:
+            </div>
             <div className="h1">{this.total()}</div>
           </div>
         </div>
       </div>
     );
   }
-
 }
 
-export default App
+export default App;
