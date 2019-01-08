@@ -33,8 +33,7 @@
       "rubocop -a"
     ],
     "*.js": [
-      "eslint --fix",
-      "git add"
+      "eslint --fix"
     ],
     "*.{css,scss}": [
       "stylelint --fix"
