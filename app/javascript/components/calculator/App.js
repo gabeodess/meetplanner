@@ -11,7 +11,7 @@ const coefficients = {
     b: 175.508,
   },
 };
-// hello world
+
 const pad = new Array(30).fill(null);
 const mastersCoefficients = [...pad,
   1.000, 1.016, 1.031, 1.046,
@@ -136,70 +136,73 @@ class App extends React.Component {
     age = age || '';
 
     return (
-      <div className="container-fluid">
-        <div className="row">
-          <div className="btn-group btn-group-toggle p-0 col-sm-12" data-toggle="buttons">
-            <label className="btn btn-primary rounded-0 col-sm-6 active" htmlFor="type-sinclair" onClick={this.onRadioButtonClick}>
-              <input type="radio" name="type" autoComplete="off" value="sinclair" id="type-sinclair" />
-              Sinclair
-            </label>
-            <label className="btn btn-primary rounded-0 col-sm-6" htmlFor="type-masters" onClick={this.onRadioButtonClick}>
-              <input type="radio" name="type" autoComplete="off" value="masters" id="type-masters" />
-              Masters
-            </label>
-          </div>
-        </div>
-        <div className="m-1">
-          <div className="text-center h6">{this.title()}</div>
-
-          <div className="btn-group btn-group-toggle p-0 col-sm-12" data-toggle="buttons">
-            <label htmlFor="gender-male" className="btn btn-primary col-sm-6 active" onClick={this.onRadioButtonClick}>
-              <input type="radio" name="gender" id="gender-male" autoComplete="off" value="male" />
-              Male
-            </label>
-            <label htmlFor="gender-female" className="btn btn-primary col-sm-6" onClick={this.onRadioButtonClick}>
-              <input type="radio" name="gender" id="gender-female" autoComplete="off" value="female" />
-              Female
-            </label>
-          </div>
-
-          <div className="row">
-            <div className="form-group col-6">
-              <label htmlFor="weight">
-                Weight (kg)
-                <input type="number" className="form-control" name="weight" id="weight" aria-describedby="weightHelp" placeholder="Enter weight" onChange={this.onInputChange} />
-              </label>
+      <div className="container">
+        <div className='row mt-sm-5'>
+          <div className='col-md-6 offset-md-3'>
+            <div className="row">
+              <div className="btn-group btn-group-toggle p-0 col-sm-12" data-toggle="buttons">
+                <label className="btn btn-primary rounded-0 col-sm-6 active" htmlFor="type-sinclair" onClick={this.onRadioButtonClick}>
+                  <input type="radio" name="type" autoComplete="off" value="sinclair" id="type-sinclair" />
+                  Sinclair
+                </label>
+                <label className="btn btn-primary rounded-0 col-sm-6" htmlFor="type-masters" onClick={this.onRadioButtonClick}>
+                  <input type="radio" name="type" autoComplete="off" value="masters" id="type-masters" />
+                  Masters
+                </label>
+              </div>
             </div>
+            <div className="m-1">
+              <div className="text-center h6">{this.title()}</div>
 
-            {
-              type === 'masters' ? (
+              <div className="btn-group btn-group-toggle p-0 col-sm-12" data-toggle="buttons">
+                <label htmlFor="gender-male" className="btn btn-primary col-sm-6 active" onClick={this.onRadioButtonClick}>
+                  <input type="radio" name="gender" id="gender-male" autoComplete="off" value="male" />
+                  Male
+                </label>
+                <label htmlFor="gender-female" className="btn btn-primary col-sm-6" onClick={this.onRadioButtonClick}>
+                  <input type="radio" name="gender" id="gender-female" autoComplete="off" value="female" />
+                  Female
+                </label>
+              </div>
+
+              <div className="row">
                 <div className="form-group col-6">
-                  <label htmlFor="age">
-                    Age
-                    <input type="number" value={age} className="form-control" name="age" id="age" aria-describedby="ageHelp" placeholder="Enter age" onChange={this.onInputChange} />
+                  <label htmlFor="weight">
+                    Weight (kg)
+                    <input type="number" className="form-control" name="weight" id="weight" aria-describedby="weightHelp" placeholder="Enter weight" onChange={this.onInputChange} />
                   </label>
                 </div>
-              ) : null
 
-            }
-          </div>
+                {
+                  type === 'masters' ? (
+                    <div className="form-group col-6">
+                      <label htmlFor="age">
+                        Age
+                        <input type="number" value={age} className="form-control" name="age" id="age" aria-describedby="ageHelp" placeholder="Enter age" onChange={this.onInputChange} />
+                      </label>
+                    </div>
+                  ) : null
+                }
+              </div>
 
-          <div className="form-group">
-            <label htmlFor="total">
-              Total (kg)
-              <input type="number" className="form-control" name="total" id="total" aria-describedby="totalHelp" placeholder="Enter total" onChange={this.onInputChange} />
-            </label>
-          </div>
+              <div className="form-group">
+                <label htmlFor="total">
+                  Total (kg)
+                  <input type="number" className="form-control" name="total" id="total" aria-describedby="totalHelp" placeholder="Enter total" onChange={this.onInputChange} />
+                </label>
+              </div>
 
-          <div className="text-center">
-            <div className="h6">
-              {this.totalTitle()}
-              Total:
+              <div className="text-center">
+                <div className="h6">
+                  {this.totalTitle()}
+                  Total:
+                </div>
+                <div className="h1">{this.total()}</div>
+              </div>
             </div>
-            <div className="h1">{this.total()}</div>
+          </div>
           </div>
         </div>
-      </div>
     );
   }
 }
