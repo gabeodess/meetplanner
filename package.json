@@ -34,13 +34,16 @@
   },
   "lint-staged": {
     "*.rb": [
-      "rubocop -a"
+      "rubocop -a",
+      "git add"
     ],
     "*.js": [
-      "eslint --fix"
+      "eslint --fix",
+      "git add"
     ],
     "*.{css,scss}": [
-      "stylelint --fix"
+      "stylelint --fix",
+      "git add"
     ]
   }
 }
