@@ -95,7 +95,7 @@ class UsersNew extends React.Component {
                 </div>
 
                 <div className="form-group">
-                  <input type="submit" className="btn btn-primary actions" />
+                  <input type="submit" value="Submit" className="btn btn-primary actions" />
                 </div>
 
                 <div>
