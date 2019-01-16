@@ -1,5 +1,6 @@
 import React from 'react';
 import { Router, Route } from 'react-router-dom';
+import axios from 'axios';
 import Header from './layout/Header';
 import history from '../helpers/history';
 import EventsSearch from './EventsSearch';
@@ -8,6 +9,15 @@ import UsersNew from './UsersNew';
 
 class App extends React.Component {
   state = { currentUser: null }
+
+  componentDidMount() {
+    axios.get('/api/v1/sessions/current').then(
+      (response) => {
+        window.response = response;
+        this.setState({ currentUser: response.data });
+      },
+    );
+  }
 
   signIn = (user) => {
     this.setState({ currentUser: user });

@@ -1,3 +1,16 @@
+# Responsible for handling auth requests through Devise
+# If the request is not HTML (e.g. JSON) then we don't want to send a redirect,
+# instead we send a 401 response with `http_auth`
+class MyApplicationFailureApp < Devise::FailureApp
+  def respond
+    if request.format.to_sym == :html
+      super
+    else
+      http_auth
+    end
+  end
+end
+
 # Use this hook to configure devise mailer, warden hooks and so forth.
 # Many of these configuration options can be set straight in your model.
 Devise.setup do |config|
@@ -264,6 +277,9 @@ Devise.setup do |config|
   #   manager.intercept_401 = false
   #   manager.default_strategies(scope: :user).unshift :some_external_strategy
   # end
+  config.warden do |manager|
+    manager.failure_app = MyApplicationFailureApp
+  end
 
   # ==> Mountable engine configurations
   # When using Devise inside an engine, let's call it `MyEngine`, and this engine
