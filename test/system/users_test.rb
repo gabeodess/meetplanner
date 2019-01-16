@@ -2,12 +2,14 @@ require 'application_system_test_case'
 
 class UsersTest < ApplicationSystemTestCase
   test 'new user registration' do
-    visit new_user_registration_path
+    visit '/register'
     fill_in 'Email', with: 'foo@bar.com'
     fill_in 'Password', with: 'testpass'
-    fill_in 'Password confirmation', with: 'testpass'
-    click_on 'Sign up'
-    assert_selector 'a', text: 'Logout'
+    fill_in 'Password Confirmation', with: 'testpass'
+    assert_difference 'User.count' do
+      click_button 'Submit'
+      assert_selector 'a', text: 'Logout'
+    end
   end
 
   test 'user login' do
