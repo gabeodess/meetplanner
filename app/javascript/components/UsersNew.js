@@ -2,9 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import history from './history';
-
-const authenticityToken = decodeURIComponent(document.cookie.match('X-CSRF-Token=([^;]+)')[1]);
+import history from '../helpers/history';
+import csrfToken from '../helpers/csrfToken';
 
 const disableFormSubmitButton = (form) => {
   $(form).find('input[type=submit]').attr({ disabled: 'disabled' });
@@ -28,7 +27,7 @@ class UsersNew extends React.Component {
 
     disableFormSubmitButton(target);
 
-    axios.post('/users', { user, authenticity_token: authenticityToken }).then(
+    axios.post('/users', { user, authenticity_token: csrfToken() }).then(
       (response) => {
         signIn(response.data);
         history.push('/');

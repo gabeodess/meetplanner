@@ -1,7 +1,7 @@
 import React from 'react';
 import { Router, Route } from 'react-router-dom';
 import Header from './layout/Header';
-import history from './history';
+import history from '../helpers/history';
 import EventsSearch from './EventsSearch';
 import SessionsNew from './SessionsNew';
 import UsersNew from './UsersNew';
@@ -25,7 +25,10 @@ class App extends React.Component {
         <React.Fragment>
           <Header currentUser={currentUser} signOut={this.signOut} />
           <Route path="/" exact component={EventsSearch} />
-          <Route path="/signin" component={SessionsNew} />
+          <Route
+            path="/signin"
+            render={props => <SessionsNew {...props} signIn={this.signIn} />}
+          />
           <Route
             path="/register"
             render={props => <UsersNew {...props} signIn={this.signIn} />}
