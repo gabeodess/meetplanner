@@ -1,10 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import csrfToken from '../../helpers/csrfToken';
+import history from '../../helpers/history';
 
 class Header extends React.PureComponent {
+  signOut = () => {
+    const { signOut } = this.props;
+    axios.delete('/users/sign_out', { data: { authenticity_token: csrfToken() } }).then(
+      () => {
+        signOut();
+        history.push('/');
+      },
+    );
+  }
+
   render() {
-    const { currentUser, signOut } = this.props;
+    const { currentUser } = this.props;
 
     return (
       <React.Fragment>
@@ -26,7 +39,7 @@ class Header extends React.PureComponent {
 
               <li className="nav-item">
                 {currentUser ? (
-                  <Link className="nav-link" to="/" onClick={signOut}>Logout</Link>
+                  <Link className="nav-link" to="/" onClick={this.signOut}>Logout</Link>
                 ) : (
                   <Link className="nav-link" to="/signin">Login</Link>
                 )}
