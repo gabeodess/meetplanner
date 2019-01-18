@@ -20,7 +20,7 @@ jobs:
       - image: postgres:9.5
         environment:
           POSTGRES_USER: meet-planner
-          POSTGRES_DB: meet-planner_test
+          POSTGRES_DB: meetplanner_test
           POSTGRES_PASSWORD: ""
 
     working_directory: ~/repo
