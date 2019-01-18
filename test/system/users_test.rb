@@ -42,5 +42,6 @@ class UsersTest < ApplicationSystemTestCase
     end
     last_email = ActionMailer::Base.deliveries.last
     assert_equal 'Reset password instructions', last_email.subject
+    assert_equal [user.email], last_email.to
   end
 end

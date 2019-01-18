@@ -6,6 +6,7 @@ import history from '../helpers/history';
 import EventsSearch from './EventsSearch';
 import SessionsNew from './SessionsNew';
 import UsersNew from './UsersNew';
+import PasswordsNew from './PasswordsNew';
 
 class App extends React.Component {
   state = { currentUser: null }
@@ -15,6 +16,9 @@ class App extends React.Component {
       (response) => {
         window.response = response;
         this.setState({ currentUser: response.data });
+      },
+      () => {
+        // 401 means not logged in, do nothing
       },
     );
   }
@@ -35,6 +39,7 @@ class App extends React.Component {
         <React.Fragment>
           <Header currentUser={currentUser} signOut={this.signOut} />
           <Route path="/" exact component={EventsSearch} />
+          <Route path="/forgot-password" exact component={PasswordsNew} />
           <Route
             path="/signin"
             render={props => <SessionsNew {...props} signIn={this.signIn} />}
