@@ -7,12 +7,20 @@ AllCops:
     - spring.rb
     - bin/*
 
-Metrics/LineLength:
-  Max: 160
+Metrics/AbcSize:
+  Exclude:
+    - db/migrate/*
 
 Metrics/BlockLength:
   Exclude:
     - config/environments/*
+
+Metrics/LineLength:
+  Max: 160
+
+Metrics/MethodLength:
+  Exclude:
+    - db/migrate/*
 
 Style/ClassAndModuleChildren:
   EnforcedStyle: compact

@@ -3,7 +3,10 @@ import { Router, Route } from 'react-router-dom';
 import axios from 'axios';
 import Header from './layout/Header';
 import history from '../helpers/history';
+import routes from '../helpers/routes';
 import EventsSearch from './EventsSearch';
+import EventsIndex from './EventsIndex';
+import EventsNew from './EventsNew';
 import SessionsNew from './SessionsNew';
 import UsersNew from './UsersNew';
 import PasswordsNew from './PasswordsNew';
@@ -40,6 +43,8 @@ class App extends React.Component {
           <Header currentUser={currentUser} signOut={this.signOut} />
           <Route path="/" exact component={EventsSearch} />
           <Route path="/forgot-password" exact component={PasswordsNew} />
+          <Route path={routes.events} exact component={EventsIndex} />
+          <Route path={routes.newEvent} exact component={EventsNew} />
           <Route
             path="/signin"
             render={props => <SessionsNew {...props} signIn={this.signIn} />}
