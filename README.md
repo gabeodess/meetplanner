@@ -4,9 +4,11 @@ This README documents the steps that are necessary to get the
 application up and running.
 
 ## Getting Started
-`rails db:setup`
-`rails server`
-`open http://localhost:3000`
+- `bundle install`
+- `yarn install`
+- `rails db:setup`
+- `rails server`
+- `open http://localhost:3000`
 
 ### Husky
 This project uses [Husky](https://github.com/typicode/husky) to manage git hooks.
@@ -15,21 +17,3 @@ In this case you will need to remove the hooks first and re-install Husky:
 - `rm .git/hooks/pre-commit`
 - `rm .git/hooks/pre-push`
 - `yarn add husky`
-
-Things to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
