@@ -5,7 +5,7 @@ import routes from '../helpers/routes';
 import csrfToken from '../helpers/csrfToken';
 
 class EventsIndex extends React.Component {
-  state = { events: [] }
+  state = { events: null }
 
   componentDidMount() {
     this.fetchEvents();
@@ -28,7 +28,7 @@ class EventsIndex extends React.Component {
     const { events } = this.state;
 
     return (
-      <table>
+      <table className="table">
         <tbody>
           {
           events.map(event => (
@@ -46,19 +46,28 @@ class EventsIndex extends React.Component {
     );
   }
 
+  renderContent() {
+    const { events } = this.state;
+    return events.length > 0 ? (
+      this.renderList()
+    ) : (
+      <p>
+        You haven&apos;t created any events yet!
+        Click &quot;Create Event&quot; to get started.
+      </p>
+    );
+  }
+
   render() {
     const { events } = this.state;
 
     return (
       <div className="text-center">
         <h2>My Events</h2>
-        {events.length > 0 ? (
-          this.renderList()
+        {events === null ? (
+          <div className="text-center">Loading...</div>
         ) : (
-          <p>
-            You haven&apos;t created any events yet!
-            Click &quot;Create Event&quot; to get started.
-          </p>
+          this.renderContent()
         )}
         <Link to={routes.newEvent} className="btn btn-primary btn-large text-uppercase">+ Create Event</Link>
       </div>

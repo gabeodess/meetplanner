@@ -1,6 +1,21 @@
 require 'application_system_test_case'
 
 class EventsTest < ApplicationSystemTestCase
+  test 'edit event' do
+    title1 = 'foobar'
+    title2 = 'foobar2'
+    @event = FactoryBot.create(:event, title: title1)
+    sign_in @event.user
+    visit root_url
+    click_on 'My Events'
+    click_on 'Edit'
+    fill_in 'Title', with: title2
+    assert_changes -> { @event.reload.title }, from: title1, to: title2 do
+      click_on 'Update Event'
+      assert_no_text 'Edit Event'
+    end
+  end
+
   test 'create event' do
     @user = FactoryBot.create(:user)
     sign_in @user

@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import FormContext from '../../contexts/FormContext';
 
 class Field extends React.PureComponent {
+  static contextType = FormContext
+
   render() {
     const {
-      label, name, errors, scope, tag, type,
+      label, name, scope, tag, type,
     } = this.props;
     const htmlName = scope ? `${scope}[${name}]` : name;
     const id = scope ? `${scope}-${name}` : name;
@@ -12,18 +15,27 @@ class Field extends React.PureComponent {
 
     return (
       <div className="form-group">
-        <label htmlFor={id} className="d-block">
-          {label || name}
-          <Tag
-            name={htmlName}
-            type={type || 'text'}
-            id={id}
-            className={`form-control ${!!errors[name] && 'is-invalid'}`}
-          />
-          <div className="invalid-feedback">
-            {(errors[name] || []).join(', ')}
-          </div>
-        </label>
+        <FormContext.Consumer>
+          {(object) => {
+            const errors = object.errors || {};
+
+            return (
+              <label htmlFor={id} className="d-block">
+                {label || name}
+                <Tag
+                  defaultValue={object[name] || undefined}
+                  name={htmlName}
+                  type={type || 'text'}
+                  id={id}
+                  className={`form-control ${!!errors[name] && 'is-invalid'}`}
+                />
+                <div className="invalid-feedback">
+                  {(errors[name] || []).join(', ')}
+                </div>
+              </label>
+            );
+          }}
+        </FormContext.Consumer>
       </div>
     );
   }
@@ -35,7 +47,6 @@ Field.propTypes = {
   label: PropTypes.node,
   type: PropTypes.string,
   tag: PropTypes.string,
-  errors: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)),
 };
 
 Field.defaultProps = {
@@ -43,6 +54,5 @@ Field.defaultProps = {
   label: null,
   type: 'text',
   tag: 'input',
-  errors: {},
 };
 export default Field;

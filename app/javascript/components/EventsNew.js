@@ -25,7 +25,7 @@ class EventsNew extends React.Component {
     const { errors } = this.state;
 
     return (
-      <div className="container text-center">
+      <div>
         <h1>Create an Event</h1>
         <form onSubmit={this.onSubmit} id="event-form" className="text-left">
           <input type="hidden" name="authenticity_token" value={csrfToken()} />
