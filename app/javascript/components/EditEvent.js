@@ -38,13 +38,13 @@ class EditEvent extends React.Component {
   }
 
   render() {
-    const { event, errors } = this.state;
+    const { event } = this.state;
 
     return (
       <div className="container">
         <h1>Edit Event</h1>
         {event ? (
-          <EventForm object={event} errors={errors} onSubmit={this.onSubmit} />
+          <EventForm object={event} onSubmit={this.onSubmit} />
         ) : (
           <div className="text-center">Loading...</div>
         )}

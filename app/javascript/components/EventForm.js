@@ -8,8 +8,7 @@ class EventForm extends React.Component {
   state = {}
 
   render() {
-    const { object, onSubmit } = this.props;
-    const submitText = object ? 'Update Event' : 'Create Event';
+    const { object, onSubmit, submitText } = this.props;
 
     return (
       <form onSubmit={onSubmit} id="event-form" className="text-left">
@@ -31,7 +30,7 @@ class EventForm extends React.Component {
         </FormContext.Provider>
 
         <div className="text-center">
-          <input type="submit" value={submitText} className="btn btn-primary btn-large text-uppercase" />
+          <input type="submit" value={submitText || (object ? 'Update Event' : 'Create Event')} className="btn btn-primary btn-large text-uppercase" />
         </div>
       </form>
     );
@@ -41,10 +40,12 @@ class EventForm extends React.Component {
 EventForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   object: PropTypes.objectOf(PropTypes.string),
+  submitText: PropTypes.string,
 };
 
 EventForm.defaultProps = {
   object: {},
+  submitText: null,
 };
 
 export default EventForm;
