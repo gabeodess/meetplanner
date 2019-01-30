@@ -1,6 +1,15 @@
 require 'application_system_test_case'
 
 class EventsTest < ApplicationSystemTestCase
+  test 'show event' do
+    event = FactoryBot.create(:event)
+    sign_in event.user
+    visit root_url
+    click_on 'My Events'
+    click_on 'Show'
+    assert_text event.title
+  end
+
   test 'edit event' do
     title1 = 'foobar'
     title2 = 'foobar2'
@@ -26,6 +35,13 @@ class EventsTest < ApplicationSystemTestCase
     fill_in 'event-sanction_id', with: :foobar
     fill_in 'event-fee', with: 0
     fill_in 'event-start_on', with: Date.today
+    fill_in 'event-organizer', with: :foobar
+    fill_in 'event-street', with: :foobar
+    fill_in 'event-city', with: :foobar
+    fill_in 'event-state', with: :foobar
+    fill_in 'event-zipcode', with: :foobar
+    fill_in 'event-email', with: 'foo@bar.com'
+    fill_in 'event-phone', with: :foobar
     assert_difference '@user.events.count' do
       click_on 'Create'
       assert_text :foobar

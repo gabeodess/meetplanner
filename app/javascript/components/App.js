@@ -1,11 +1,12 @@
 import React from 'react';
-import { Router, Route } from 'react-router-dom';
+import { Router, Route, Switch } from 'react-router-dom';
 import axios from 'axios';
 import Header from './layout/Header';
 import history from '../helpers/history';
 import routes from '../helpers/routes';
 import EventsSearch from './EventsSearch';
 import EventsIndex from './EventsIndex';
+import Event from './Event';
 import EventsNew from './EventsNew';
 import EditEvent from './EditEvent';
 import SessionsNew from './SessionsNew';
@@ -43,19 +44,22 @@ class App extends React.Component {
         <React.Fragment>
           <Header currentUser={currentUser} signOut={this.signOut} />
           <div className="container">
-            <Route path="/" exact component={EventsSearch} />
-            <Route path="/forgot-password" exact component={PasswordsNew} />
-            <Route path={routes.events} exact component={EventsIndex} />
-            <Route path={routes.newEvent} exact component={EventsNew} />
-            <Route path={routes.editEvent(':id')} exact component={EditEvent} />
-            <Route
-              path="/signin"
-              render={props => <SessionsNew {...props} signIn={this.signIn} />}
-            />
-            <Route
-              path="/register"
-              render={props => <UsersNew {...props} signIn={this.signIn} />}
-            />
+            <Switch>
+              <Route path="/" exact component={EventsSearch} />
+              <Route path="/forgot-password" exact component={PasswordsNew} />
+              <Route path={routes.events} exact component={EventsIndex} />
+              <Route path={routes.newEvent} exact component={EventsNew} />
+              <Route path={routes.event(':id')} exact component={Event} />
+              <Route path={routes.editEvent(':id')} exact component={EditEvent} />
+              <Route
+                path="/signin"
+                render={props => <SessionsNew {...props} signIn={this.signIn} />}
+              />
+              <Route
+                path="/register"
+                render={props => <UsersNew {...props} signIn={this.signIn} />}
+              />
+            </Switch>
           </div>
         </React.Fragment>
       </Router>

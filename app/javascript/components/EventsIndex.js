@@ -35,6 +35,7 @@ class EventsIndex extends React.Component {
             <tr key={event.id}>
               <td>{event.title}</td>
               <td>
+                <Link className="btn btn-link" to={routes.event(event.id)}>Show</Link>
                 <Link className="btn btn-link" to={routes.editEvent(event.id)}>Edit</Link>
                 <button type="button" className="btn btn-link" onClick={e => this.onClickDelete(e, event.id)}>Delete</button>
               </td>
