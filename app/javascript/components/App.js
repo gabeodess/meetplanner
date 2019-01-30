@@ -12,6 +12,7 @@ import EditEvent from './EditEvent';
 import SessionsNew from './SessionsNew';
 import UsersNew from './UsersNew';
 import PasswordsNew from './PasswordsNew';
+import Home from './Home';
 
 class App extends React.Component {
   state = { currentUser: null }
@@ -43,16 +44,17 @@ class App extends React.Component {
       <Router history={history}>
         <React.Fragment>
           <Header currentUser={currentUser} signOut={this.signOut} />
+          <Route path="/" exact component={Home} />
           <div className="container">
             <Switch>
-              <Route path="/" exact component={EventsSearch} />
               <Route path="/forgot-password" exact component={PasswordsNew} />
+              <Route path={routes.searchEvents} component={EventsSearch} />
               <Route path={routes.events} exact component={EventsIndex} />
               <Route path={routes.newEvent} exact component={EventsNew} />
               <Route path={routes.event(':id')} exact component={Event} />
               <Route path={routes.editEvent(':id')} exact component={EditEvent} />
               <Route
-                path="/signin"
+                path={routes.newSession}
                 render={props => <SessionsNew {...props} signIn={this.signIn} />}
               />
               <Route

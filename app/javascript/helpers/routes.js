@@ -7,6 +7,7 @@ export default {
   editEvent: id => `/events/edit/${id}`,
   event: id => `/events/${id}`,
   newEvent: '/events/new',
+  searchEvents: '/events/search',
   api: {
     events: '/api/v1/events',
     event: id => `/api/v1/events/${id}`,
