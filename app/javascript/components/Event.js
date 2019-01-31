@@ -38,6 +38,14 @@ class Event extends React.Component {
                       {
                         formatDate(event.start_on)
                       }
+                      {' '}
+-
+                      {' '}
+                      {
+                        event.end_on && formatDate(event.end_on)
+                      }
+
+
                     </div>
                     <h1>{event.title}</h1>
                     <p>
@@ -56,8 +64,17 @@ class Event extends React.Component {
                   <div className="col-sm-6">
                     <p>
                       {formatDate(event.start_on, {
-                        weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
+                        weekday: 'long', day: 'numeric', month: 'long',
                       })}
+                      {' '}
+-
+                      {' '}
+                      {' '}
+                      {
+                        event.end_on && formatDate(event.end_on, {
+                          weekday: 'long', day: 'numeric', month: 'long', year: 'numeric',
+                        })
+                      }
                     </p>
                     <p>
                       {event.street}

@@ -5,10 +5,26 @@ import csrfToken from '../helpers/csrfToken';
 import FormContext from '../contexts/FormContext';
 
 class EventForm extends React.Component {
-  state = {}
+  state = { multidayChecked: false }
+
+
+  handleCheckboxChange = () => {
+    const { multidayChecked } = this.state;
+
+    this.setState({ multidayChecked: !multidayChecked });
+  }
+
+  renderEndOn = () => {
+    const { multidayChecked } = this.state;
+    if (multidayChecked) {
+      return <Field name="end_on" type="date" scope="event" />;
+    }
+    return null;
+  }
 
   render() {
     const { object, onSubmit, submitText } = this.props;
+    const { multidayChecked } = this.state;
 
     return (
       <form onSubmit={onSubmit} id="event-form" className="text-left">
@@ -20,7 +36,15 @@ class EventForm extends React.Component {
           <Field name="fee" scope="event" required type="number" min="0.01" step="0.01" />
           <Field tag="textarea" name="description" scope="event" required />
           <Field name="start_on" type="date" scope="event" required />
-          <Field name="end_on" type="date" scope="event" />
+          <div className="form-check">
+
+            <label className="form-check-label" htmlFor="multiday">
+              <input className="form-check-input" type="checkbox" id="multiday" checked={multidayChecked} onChange={this.handleCheckboxChange} />
+                Multi-day event?
+            </label>
+          </div>
+          {this.renderEndOn()}
+
           <Field name="street" scope="event" required />
           <Field name="city" scope="event" required />
           <Field name="state" scope="event" required />
