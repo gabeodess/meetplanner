@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import csrfToken from '../../helpers/csrfToken';
 import history from '../../helpers/history';
+import routes from '../../helpers/routes';
 
 class Header extends React.PureComponent {
   signOut = () => {
@@ -41,7 +42,7 @@ class Header extends React.PureComponent {
                 {currentUser ? (
                   <Link className="nav-link" to="/" onClick={this.signOut}>Logout</Link>
                 ) : (
-                  <Link className="nav-link" to="/signin">Login</Link>
+                  <Link className="nav-link" to={routes.newSession}>Login</Link>
                 )}
               </li>
             </ul>
