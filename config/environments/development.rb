@@ -1,8 +1,9 @@
 Rails.application.configure do
-  # Do not generate js/css/helpers/fixtures for each resource
+  # Do not generate js/css/helpers/fixtures/views for each resource
   config.generators.assets = false
   config.generators.helper = false
   config.generators.test_framework :test_unit, fixture: false
+  config.generators.template_engine = false
 
   config.react.variant = :development
 

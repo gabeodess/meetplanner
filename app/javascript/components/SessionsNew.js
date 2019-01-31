@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 import csrfToken from '../helpers/csrfToken';
 import history from '../helpers/history';
+import routes from '../helpers/routes';
 
 class SessionsNew extends React.Component {
   state = { error: null }
@@ -14,7 +15,7 @@ class SessionsNew extends React.Component {
     axios.post('/users/sign_in', $('form').serialize()).then(
       (response) => {
         signIn(response.data);
-        history.push('/');
+        history.push(routes.events);
       },
       (error) => {
         const { status, data } = error.response;

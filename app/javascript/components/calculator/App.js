@@ -137,8 +137,8 @@ class App extends React.Component {
 
     return (
       <div className="container">
-        <div className='row mt-sm-5'>
-          <div className='col-md-6 offset-md-3'>
+        <div className="row mt-sm-5">
+          <div className="col-md-6 offset-md-3">
             <div className="row">
               <div className="btn-group btn-group-toggle p-0 col-sm-12" data-toggle="buttons">
                 <label className="btn btn-primary rounded-0 col-sm-6 active" htmlFor="type-sinclair" onClick={this.onRadioButtonClick}>
@@ -201,8 +201,8 @@ class App extends React.Component {
               </div>
             </div>
           </div>
-          </div>
         </div>
+      </div>
     );
   }
 }

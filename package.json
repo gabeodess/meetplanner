@@ -39,17 +39,22 @@
     }
   },
   "lint-staged": {
-    "*.rb": [
-      "rubocop -a",
-      "git add"
-    ],
-    "*.js": [
-      "eslint --fix",
-      "git add"
-    ],
-    "*.{css,scss}": [
-      "stylelint --fix",
-      "git add"
+    "linters": {
+      "*.rb": [
+        "rubocop -a",
+        "git add"
+      ],
+      "*.js": [
+        "eslint --fix",
+        "git add"
+      ],
+      "*.{css,scss}": [
+        "stylelint --fix",
+        "git add"
+      ]
+    },
+    "ignore": [
+      "db/schema.rb"
     ]
   }
 }
