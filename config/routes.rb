@@ -3,7 +3,9 @@ Rails.application.routes.draw do
     defaults format: :json do
       namespace :v1 do
         get 'sessions/current'
-        resources :events, only: %w[create index show destroy update]
+        resources :events, only: %w[create index show destroy update] do
+          get :search, on: :collection
+        end
       end
     end
   end

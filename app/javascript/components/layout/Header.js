@@ -32,7 +32,7 @@ class Header extends React.PureComponent {
             <ul className="navbar-nav mr-auto">
 
               <li className="nav-item">
-                <Link className="nav-link" to="/">Browse Events</Link>
+                <Link className="nav-link" to={routes.searchEvents}>Browse Events</Link>
               </li>
               <li className={`nav-item ${!currentUser && 'd-none'}`}>
                 <Link className="nav-link" to="/events">My Events</Link>
