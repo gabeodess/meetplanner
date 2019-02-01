@@ -36,7 +36,11 @@ jobs:
           keys:
           - v2-dependencies-{{ checksum "Gemfile.lock" }}
           - v2-dependencies-
-
+      - run:
+          name: Update Chromedriver
+          command: |
+              sudo apt-get update
+              sudo apt-get install google-chrome-stable
       - run:
           name: install dependencies
           command: bundle check --path=vendor/bundle || bundle install --path=vendor/bundle --jobs=4 --retry=3
