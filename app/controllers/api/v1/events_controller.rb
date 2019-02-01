@@ -2,7 +2,7 @@
 class Api::V1::EventsController < ApplicationController
   CREATE_PARAMS = %w[title organizer sanction_id description start_on end_on street city state zipcode phone email fee].freeze
 
-  skip_before_action :authenticate_user!, only: %w[search]
+  skip_before_action :authenticate_user!, only: %w[search show]
 
   respond_to :json
 
@@ -11,7 +11,7 @@ class Api::V1::EventsController < ApplicationController
   end
 
   def show
-    respond_with current_user.events.find(params[:id])
+    respond_with Event.find(params[:id])
   end
 
   # POST /api/v1/events

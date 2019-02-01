@@ -1,13 +1,33 @@
 require 'application_system_test_case'
 
 class EventsTest < ApplicationSystemTestCase
+  test 'search events' do
+    t1 = rand
+    t2 = rand
+    FactoryBot.create(:event, title: t1)
+    FactoryBot.create(:event, title: t2)
+    visit root_url
+    within '.navbar' do
+      click_on('Browse Events')
+    end
+    assert_text t1
+    assert_text t2
+    fill_in 'q[title_cont]', with: t1
+    click_on 'Search'
+    assert_no_text t2
+    assert_text t1
+  end
+
   test 'show event' do
     event = FactoryBot.create(:event)
-    sign_in event.user
     visit root_url
-    click_on 'My Events'
-    click_on 'Show'
-    assert_text event.title
+    within '.navbar' do
+      click_on 'Browse Events'
+    end
+    click_on event.title
+    within '.card' do
+      assert_text event.title
+    end
   end
 
   test 'edit event' do
