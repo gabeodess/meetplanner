@@ -33,20 +33,25 @@ class EventsTest < ApplicationSystemTestCase
   test 'edit event' do
     title1 = 'foobar'
     title2 = 'foobar2'
-    @event = FactoryBot.create(:event, title: title1)
+    date = Date.tomorrow
+    @event = FactoryBot.create(:event, title: title1, end_on: date)
     sign_in @event.user
     visit root_url
     click_on 'My Events'
     click_on 'Edit'
     fill_in 'Title', with: title2
-    assert_changes -> { @event.reload.title }, from: title1, to: title2 do
-      click_on 'Update Event'
-      assert_no_text 'Edit Event'
+    uncheck 'multiday'
+    assert_changes -> { @event.reload.end_on }, from: date, to: nil do
+      assert_changes -> { @event.reload.title }, from: title1, to: title2 do
+        click_on 'Update Event'
+        assert_no_text 'Edit Event'
+      end
     end
   end
 
   test 'create event' do
     @user = FactoryBot.create(:user)
+    @end_date = Date.tomorrow
     sign_in @user
     visit root_url
     click_on 'My Events'
@@ -55,6 +60,8 @@ class EventsTest < ApplicationSystemTestCase
     fill_in 'event-sanction_id', with: :foobar
     fill_in 'event-fee', with: 0
     fill_in 'event-start_on', with: Date.today
+    check 'multiday'
+    fill_in 'event-end_on', with: @end_date
     fill_in 'event-organizer', with: :foobar
     fill_in 'event-street', with: :foobar
     fill_in 'event-city', with: :foobar
@@ -66,6 +73,8 @@ class EventsTest < ApplicationSystemTestCase
       click_on 'Create'
       assert_text :foobar
     end
+    event = Event.last
+    assert_equal event.end_on, @end_date
   end
 
   test 'delete event' do
