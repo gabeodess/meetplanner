@@ -5,7 +5,6 @@ import csrfToken from '../helpers/csrfToken';
 import FormContext from '../contexts/FormContext';
 
 class EventForm extends React.Component {
-  // state = { multidayChecked: false }
   constructor(props) {
     super(props);
     this.state = { multidayChecked: !!props.object.end_on };
