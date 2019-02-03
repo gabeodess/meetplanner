@@ -5,7 +5,11 @@ import csrfToken from '../helpers/csrfToken';
 import FormContext from '../contexts/FormContext';
 
 class EventForm extends React.Component {
-  state = { multidayChecked: false }
+  // state = { multidayChecked: false }
+  constructor(props) {
+    super(props);
+    this.state = { multidayChecked: !!props.object.end_on };
+  }
 
 
   handleCheckboxChange = () => {
@@ -19,7 +23,7 @@ class EventForm extends React.Component {
     if (multidayChecked) {
       return <Field name="end_on" type="date" scope="event" />;
     }
-    return null;
+    return <input name="event[end_on]" type="hidden" />;
   }
 
   render() {

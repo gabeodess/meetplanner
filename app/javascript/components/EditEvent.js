@@ -16,6 +16,7 @@ class EditEvent extends React.Component {
     );
   }
 
+
   onSubmit = (e) => {
     e.preventDefault();
 
