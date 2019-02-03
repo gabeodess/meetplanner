@@ -11,5 +11,6 @@ export default {
   api: {
     events: '/api/v1/events',
     event: id => `/api/v1/events/${id}`,
+    searchEvents: '/api/v1/events/search',
   },
 };

@@ -6,8 +6,8 @@ const Home = () => (
   <React.Fragment>
     <div style={{ height: 300, overflow: 'hidden' }}>
       <img
-        src={`http://placekitten.com/${1200 + Math.round((Math.random() * 100))}/420`}
-        className="img-fluid"
+        src={`http://placekitten.com/${1400 + Math.round((Math.random() * 100))}/300`}
+        className="img-fluid w-100"
         alt="Responsive"
       />
     </div>

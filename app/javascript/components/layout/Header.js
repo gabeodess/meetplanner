@@ -32,7 +32,7 @@ class Header extends React.PureComponent {
             <ul className="navbar-nav mr-auto">
 
               <li className="nav-item">
-                <Link className="nav-link" to="/">Browse Events</Link>
+                <Link className="nav-link" to={routes.searchEvents}>Browse Events</Link>
               </li>
               <li className={`nav-item ${!currentUser && 'd-none'}`}>
                 <Link className="nav-link" to="/events">My Events</Link>
@@ -46,10 +46,6 @@ class Header extends React.PureComponent {
                 )}
               </li>
             </ul>
-            <form className="form-inline my-2 my-lg-0">
-              <input className="form-control mr-sm-2" type="search" placeholder="Find event" aria-label="Search" />
-              <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-            </form>
           </div>
         </nav>
       </React.Fragment>
