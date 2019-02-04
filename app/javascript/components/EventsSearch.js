@@ -86,7 +86,7 @@ class EventsSearch extends React.Component {
                   {' '}
                   {event.state}
                 </td>
-                <td>{event.status}</td>
+                <td>{event.closed_at ? 'Closed' : 'Open'}</td>
               </tr>
             ))}
           </tbody>

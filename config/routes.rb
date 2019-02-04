@@ -5,6 +5,10 @@ Rails.application.routes.draw do
         get 'sessions/current'
         resources :events, only: %w[create index show destroy update] do
           get :search, on: :collection
+          member do
+            post :close
+            post :open
+          end
         end
       end
     end

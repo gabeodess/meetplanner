@@ -9,6 +9,7 @@ import EventsIndex from './EventsIndex';
 import Event from './Event';
 import EventsNew from './EventsNew';
 import EditEvent from './EditEvent';
+import ManageEvent from './ManageEvent';
 import SessionsNew from './SessionsNew';
 import UsersNew from './UsersNew';
 import PasswordsNew from './PasswordsNew';
@@ -51,6 +52,7 @@ class App extends React.Component {
               <Route path={routes.searchEvents} component={EventsSearch} />
               <Route path={routes.events} exact component={EventsIndex} />
               <Route path={routes.newEvent} exact component={EventsNew} />
+              <Route path={routes.manageEvent(':id')} exact component={ManageEvent} />
               <Route path={routes.event(':id')} exact component={Event} />
               <Route path={routes.editEvent(':id')} exact component={EditEvent} />
               <Route
