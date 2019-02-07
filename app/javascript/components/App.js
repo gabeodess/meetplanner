@@ -14,6 +14,8 @@ import SessionsNew from './SessionsNew';
 import UsersNew from './UsersNew';
 import PasswordsNew from './PasswordsNew';
 import Home from './Home';
+import NewGroup from './NewGroup';
+import EditGroup from './EditGroup';
 
 class App extends React.Component {
   state = { currentUser: null }
@@ -48,6 +50,8 @@ class App extends React.Component {
           <Route path="/" exact component={Home} />
           <div className="container">
             <Switch>
+              <Route path={routes.editGroup(':id')} exact component={EditGroup} />
+              <Route path={routes.newEventGroup(':id')} exact component={NewGroup} />
               <Route path="/forgot-password" exact component={PasswordsNew} />
               <Route path={routes.searchEvents} component={EventsSearch} />
               <Route path={routes.events} exact component={EventsIndex} />

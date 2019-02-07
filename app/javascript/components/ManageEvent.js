@@ -5,16 +5,18 @@ import { Link } from 'react-router-dom';
 import Loading from './Loading';
 import routes from '../helpers/routes';
 import csrfToken from '../helpers/csrfToken';
+import formatDate, { formatTime } from '../helpers/formatDate';
 
 class ManageEvent extends React.Component {
   state = {}
 
   componentDidMount() {
-    const { match } = this.props;
-    axios.get(routes.api.event(match.params.id), {
-      data: { authenticity_token: csrfToken() },
-    }).then(
-      ({ data }) => { this.setState({ event: data }); },
+    this.fetchEvent();
+  }
+
+  deleteGroup = (e, id) => {
+    axios.delete(routes.api.group(id), { data: { authenticity_token: csrfToken() } }).then(
+      () => this.fetchEvent(),
     );
   }
 
@@ -28,6 +30,15 @@ class ManageEvent extends React.Component {
   openEvent = () => {
     const { match } = this.props;
     axios.post(routes.api.openEvent(match.params.id), { authenticity_token: csrfToken() }).then(
+      ({ data }) => { this.setState({ event: data }); },
+    );
+  }
+
+  fetchEvent = () => {
+    const { match } = this.props;
+    axios.get(routes.api.event(match.params.id), {
+      data: { authenticity_token: csrfToken() },
+    }).then(
       ({ data }) => { this.setState({ event: data }); },
     );
   }
@@ -58,13 +69,20 @@ class ManageEvent extends React.Component {
           </thead>
           <tbody>
             {(() => {
-              if (event.sessions) {
-                return event.sessions.map(session => (
-                  <tr>
-                    <td>{session.description}</td>
-                    <td>{session.date}</td>
-                    <td>{session.time}</td>
+              if (event.groups) {
+                return event.groups.map(group => (
+                  <tr key={group.id}>
+                    <td>{group.description}</td>
+                    <td>{formatDate(group.date)}</td>
+                    <td>{formatTime(group.weigh_in_at)}</td>
+                    <td>{formatTime(group.start_at)}</td>
                     <td />
+                    <td>
+                      <Link to={routes.editGroup(group.id)} className="btn btn-link">Edit info</Link>
+                      <button type="button" className="btn btn-link" onClick={e => this.deleteGroup(e, group.id)}>
+                        Delete
+                      </button>
+                    </td>
                   </tr>
                 ));
               }
@@ -80,10 +98,10 @@ class ManageEvent extends React.Component {
           <div className="col-sm-8 offset-sm-2">
             <div className="row text-uppercase">
               <div className="col-sm-6">
-                <button type="button" className="btn btn-primary btn-block text-uppercase">Create Session</button>
+                <Link to={routes.newEventGroup(event.id)} className="btn btn-primary btn-block">Create Session</Link>
               </div>
               <div className="col-sm-6">
-                <Link to={routes.editEvent(event.id)} className="btn btn-primary btn-block text-uppercase">Edit Event Info</Link>
+                <Link to={routes.editEvent(event.id)} className="btn btn-primary btn-block">Edit Event Info</Link>
               </div>
               <div className="col-sm-6 mt-4">
                 <button type="button" className="btn btn-primary btn-block text-uppercase">Manage Athletes</button>

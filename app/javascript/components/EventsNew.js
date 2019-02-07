@@ -9,7 +9,8 @@ class EventsNew extends React.Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    axios.post('/api/v1/events', $('form#event-form').serialize()).then(
+
+    axios.post('/api/v1/events', $('form').serialize()).then(
       () => { history.push(routes.events); },
       (error) => {
         const { status, data } = error.response;
