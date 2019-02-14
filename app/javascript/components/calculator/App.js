@@ -195,6 +195,7 @@ class App extends React.Component {
               <div className="text-center">
                 <div className="h6">
                   {this.totalTitle()}
+                  {' '}
                   Total:
                 </div>
                 <div className="h1">{this.total()}</div>
