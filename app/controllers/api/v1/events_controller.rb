@@ -6,6 +6,18 @@ class Api::V1::EventsController < ApplicationController
 
   respond_to :json
 
+  def open
+    event = current_user.events.find(params[:id])
+    event.update_attribute(:closed_at, nil)
+    respond_with :api, :v1, event
+  end
+
+  def close
+    event = current_user.events.find(params[:id])
+    event.update_attribute(:closed_at, Time.now)
+    respond_with :api, :v1, event
+  end
+
   def search
     respond_with Event.ransack(params[:q]).result
   end
