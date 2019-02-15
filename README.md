@@ -12,7 +12,7 @@ application up and running.
 
 ### Husky
 This project uses [Husky](https://github.com/typicode/husky) to manage git hooks.
-If you already have a hooks already defined in `.git/hooks/` then husky will not install the hooks for you.
+If you already have a hook defined in `.git/hooks/` then husky will not install the hooks for you.
 In this case you will need to remove the hooks first and re-install Husky:
 - `rm .git/hooks/pre-commit`
 - `rm .git/hooks/pre-push`
