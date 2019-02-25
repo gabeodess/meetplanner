@@ -66,7 +66,7 @@ end
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 gem 'ransack', github: 'activerecord-hackery/ransack'
-gem 'bootstrap', '~> 4.1.3'
+gem 'bootstrap'
 gem 'devise'
 gem 'jquery-rails'
 gem 'react-rails'
