@@ -10,7 +10,7 @@ export default {
   manageEvent: id => `/events/manage/${id}`,
   event: id => `/events/${id}`,
   newEvent: '/events/new',
-  searchEvents: '/events/search',
+  searchEvents: '/',
   api: {
     events: '/api/v1/events',
     event: id => `/api/v1/events/${id}`,
